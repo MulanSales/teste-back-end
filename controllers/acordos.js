@@ -5,9 +5,9 @@ exports.getAcordos = async (req, res, next) => {
         const acordos = await Acordo.find().populate('oportunidades');
 
         if (!acordos || acordos.length === 0) {
-            return res.status(404).json({
-                message: 'Não foi possível encontrar nenhum acordo'
-            });
+            const error = new Error('Não foi possível encontrar nenhum acordo');
+            error.statusCode = 404;
+            throw error;
         }
 
         return res.status(200).json({
@@ -16,6 +16,6 @@ exports.getAcordos = async (req, res, next) => {
             totalItems: acordos.length
         });
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 };

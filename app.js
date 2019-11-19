@@ -32,6 +32,19 @@ app.use((req, res, next) => {
 // Controller Routers
 app.use('/api/v1', acordosRoutes);
 
+app.use((error, req, res, next) => {
+    const statusCode = error.statusCode || 500;
+    const message = error.message;
+
+    const data = error.data ? error.data : null;
+
+    res.status(statusCode).json({
+        message: message,
+        data: data
+    });
+});
+
+// Integration routine between Bling and PipeDrive, it happens in a 30 minutes interval
 pipeBlingIntegrationService.integrate();
 
 // Moongose connection and server initialization
