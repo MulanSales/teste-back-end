@@ -69,6 +69,5 @@ mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
         })
     })
     .catch(err => {
-        console.log(MONGODB_URI);
         console.log(err);
     });
