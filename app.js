@@ -3,6 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+// Local Services
+const pipeBlingIntegrationService = require('./services/Integration');
+
 // Express App Initialization
 const app =  express();
 
@@ -20,6 +23,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
 });
+
+pipeBlingIntegrationService.integrate();
 
 // Moongose connection and server initialization
 mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
