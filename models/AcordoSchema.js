@@ -11,7 +11,7 @@ const acordoSchema = new Schema({
         required: true
     },
     valor: {
-        type: mongoose.Types.Decimal128,
+        type: Number,
         required: true
     },
     oportunidades: [{

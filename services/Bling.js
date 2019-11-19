@@ -8,7 +8,6 @@ const insertOrders = async (deals) => {
         return new Promise((resolve, reject) => {
             try{
                 resolve(deals.forEach(async deal => {
-                    console.log("Trying to save orders on bling");  
                     await blingOrder.save(deal);
                 }));
                 return;

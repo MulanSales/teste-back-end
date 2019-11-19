@@ -7,24 +7,23 @@ const { getDeals } = require('./PipeDrive');
 exports.integrate = () => {
     return setInterval( async () => {
         try{
+            console.log("----Integration Routine Started----");
             const deals = await getDeals();
             const orders = await insertOrders(deals).then(() => getOrders());
 
             for (const [idx, order] of orders.entries()){
                 const pedido = order.pedido;
-                const valor = pedido.totalvenda;
+                const valor = parseFloat(pedido.totalvenda).toFixed(2);
                 const data = pedido.data;
                 const consolidacaoId = Buffer.from(`${valor}${data}`, 'utf-8').toString('hex');
 
                 let consolidacao = await AcordoSchema.findById(consolidacaoId);
 
-                console.log(consolidacao);
-
                 if (!consolidacao){
                     consolidacao = new AcordoSchema({
                         _id: consolidacaoId,
                         valor: valor,
-                        data: new Date(data)
+                        data: data
                     });
                 };
 

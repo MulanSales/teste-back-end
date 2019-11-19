@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 // Local Services
 const pipeBlingIntegrationService = require('./services/Integration');
 
+// Controller Routers
+const acordosRoutes = require('./routes/acordos');
+
 // Express App Initialization
 const app =  express();
 
@@ -22,7 +25,12 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-type, Authorization');
+    next();
 });
+
+// Controller Routers
+app.use('/api/v1', acordosRoutes);
 
 pipeBlingIntegrationService.integrate();
 
