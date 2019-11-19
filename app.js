@@ -2,9 +2,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const swaggerUi = require('express-swaggerize-ui');
 
 // Local Services
 const pipeBlingIntegrationService = require('./services/Integration');
+
+// Helper Functions
+const { swaggerFileGenerator } = require('./helpers/swaggerGenerator');
 
 // Controller Routers
 const acordosRoutes = require('./routes/acordos');
@@ -43,6 +47,16 @@ app.use((error, req, res, next) => {
         data: data
     });
 });
+
+// Swagger function to generate api-docs.json locally
+swaggerFileGenerator(app, process.env.HOST);
+
+// Swagger UI related middlewares
+app.use('/api-docs.json', (req, res) => {
+    res.json(require('./api-docs.json'));
+});
+
+app.use('/', swaggerUi());
 
 // Integration routine between Bling and PipeDrive, it happens in a 30 minutes interval
 pipeBlingIntegrationService.integrate();

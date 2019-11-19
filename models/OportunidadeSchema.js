@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+/**
+ * @typedef Oportunidade 
+ * @property {string} _id
+ * @property {string} data
+ * @property {number} valor
+ * @property {number} clientId
+ */
+
 const oportunidadeSchema = new Schema({
     _id: {
         type: String,
