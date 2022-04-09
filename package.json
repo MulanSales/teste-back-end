@@ -29,7 +29,7 @@
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "js2xmlparser": "^4.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.7.11",
     "pipedrive": "^9.0.0",
     "express-swagger-generator": "^1.1.15",
